@@ -1,0 +1,30 @@
+<!-- Template to add new records -->
+<section class="app__block app__block-createForm">
+    <div class="app__block-row">
+        
+        <div class="container">
+            <div class="row clearfix">
+                <div class="col-xs-12">
+                    <%= render 'shared/flash_messages' %>
+                    <div class="app__form app__formWrap--styled app__formWrap--createRecord">
+                        <header class="app__formWrap--header app__formformWrap--title text-center">
+                            <h1>Add new record</h1>
+                        </header>
+                        <div class="app__form-row">
+                            <%= simple_form_for Record.new do | f | %>
+                                <%= f.input :title %>
+                                <%= f.input :amount %>
+                                <%= f.input :date, :as => :date,
+                                            :start_year => 2016,
+                                            :end_year => 2050,
+                                            :order => [:year, :month, :day] %>
+                                <%= f.submit 'Submit', class: 'btn btn-action btn-red' %>
+                            <% end %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</section><!-- /#Template to add new records -->

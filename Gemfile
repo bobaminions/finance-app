@@ -7,6 +7,10 @@ gem 'rails', '4.2.5'
 gem 'pg'
 # Installing bootstrap gem
 gem 'bootstrap-sass', '~> 3.3.6'
+# Installing simple form
+gem 'simple_form'
+# Installing will pagination gem
+gem 'will_paginate', '~> 3.1.0'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets

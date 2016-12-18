@@ -2,20 +2,25 @@
 
 <!-- Adding bootstrap nav in app App -->
 <header id="app__masthead" class="app__header app__masthead">
-  <nav class="navbar navbar-default text-center" role="navigation">
+  <nav class="navbar navbar-default" role="navigation">
     <div class="container">
       <div class="row clearfix">
-        <div class="col-xs-12">
+        <div class="col-xs-3">
           <!-- Brand and toggle get grouped for better mobile display -->
           <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
             <%= link_to 'Finance App', root_path, class: "navbar-brand" %>
           </div>
+        </div>
+        
+        <div class="col-xs-9 text-right">
+            <div class="app__form-search">
+              <%= form_tag(root_path, :method => "get", id: "search-form") do %>
+                <%= text_field_tag :search, params[:search], :class => 'form-control', placeholder: "Search records by title" %>
+                <%= submit_tag "Search", :name => nil, :class => 'btn btn-primary btn-lg' %>
+              <% end %>
+            </div>
+        </div>
+        
       </div>
     </div><!-- /.container-fluid -->
   </nav><!-- /.#Adding bootstrap nav in app App -->

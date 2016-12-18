@@ -1,3 +1,22 @@
+<section class="app__block app__block--recordCount">
+    <div class="app__block-row">
+        
+        <div class="container">
+            <div class="row clearfix">
+                <div class="col-xs-12">
+                    <%= render 'shared/flash_messages' %>
+                    <% if @records.blank? %>
+                        <div class="app__message app__message--lg app__message--count text-center">Currently there are no records containing term <%= params[:search] %>.</h3>
+                    <% else %>
+                        <div class="app__message app__message--lg app__message--count text-center">Currently there are <%= @record_count %> record(s) available <%= if params[:search] == '' || !params.include?(:search) then "in database containing all terms" else "in database containing term " + "'" + params[:search] + "'" end %>.</h3>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</section>
+
 <section class="app__block app__block--accountDetails">
     <div class="app__block-row">
         
@@ -7,20 +26,24 @@
                     <div class="app__detail-row">
                         <header class="app__detail-title">
                             <h3>Account Information</h3>
-                            <a href="" class="btn btn-primary btn-lg">Add Record</a>
                         </header>
+                        <% if(@debt_amount < 0) %>
+                            <div class="app__message app__message--sm app__message--reminder"><p>Reminder - You are running under <%= @debt_amount.abs %> debt, please clear all your debt soon, else necessary action will be taken!</p></div>
+                        <% else %>
+                            <div class="app__message app__message--sm app__message--reminder"><p>Congratulations! You are now debt free.</p></div>
+                        <% end %>
                         <ul class="app__list-recordDetail app__list" role="group">
                             <li class="app__list-row">
                                 <span class="app__list-cell app__list-title">Balance</span>
-                                <span class="app__list-cell app__list-value">50000</span>
+                                <span class="app__list-cell app__list-value"><%= @balance_sum %></span>
                             </li>
                             <li class="app__list-row">
                                 <span class="app__list-cell app__list-title">Debt</span>
-                                <span class="app__list-cell app__list-value">1000</span>
+                                <span class="app__list-cell app__list-value"><%= @debt_amount %></span>
                             </li>
                             <li class="app__list-row">
                                 <span class="app__list-cell app__list-title">Total</span>
-                                <span class="app__list-cell app__list-value">49000</span>
+                                <span class="app__list-cell app__list-value"><%= @total_amount %></span>
                             </li>
                         </ul>
                     </div>
@@ -40,48 +63,51 @@
                     <div class="app__detail-row">
                         <header class="app__detail-title">
                             <h3>Record Entry Table</h3>
+                            <!--<a href="" class="btn btn-primary btn-lg">Add Record</a>-->
+                            <%= link_to new_record_url, :class => 'btn btn-primary btn-lg' do %>
+                                <i class="fa fa-plus"></i>
+                                <span>Add Record</span>
+                            <% end %>
                         </header>
                         <ul class="app__list-recordTable app__list" role="group">
                             <li class="app__list-row app__list-row-header">
+                                <span class="app__list-cell app__list-cell-sn">S.N.</span>
                                 <span class="app__list-cell">Date</span>
                                 <span class="app__list-cell">Title</span>
                                 <span class="app__list-cell">Amount</span>
+                                <span class="app__list-cell">Publshed on</span>
+                                <span class="app__list-cell">Updated on</span>
                                 <span class="app__list-cell">Action</span>
                             </li>
-                            <li class="app__list-row">
-                                <span class="app__list-cell">2016-12-06</span>
-                                <span class="app__list-cell">Loan</span>
-                                <span class="app__list-cell">5000</span>
-                                <span class="app__list-cell">
-                                    <div class="app__btn-group">
-                                        <a href="" class="btn btn-primary btn-lg">Edit</a>
-                                        <a href="" class="btn btn-danger btn-lg">Delete</a>
-                                    </div>
-                                </span>
-                            </li>
-                            <li class="app__list-row">
-                                <span class="app__list-cell">2016-12-06</span>
-                                <span class="app__list-cell">Loan</span>
-                                <span class="app__list-cell">5000</span>
-                                <span class="app__list-cell">
-                                    <div class="app__btn-group">
-                                        <a href="" class="btn btn-primary btn-lg">Edit</a>
-                                        <a href="" class="btn btn-danger btn-lg">Delete</a>
-                                    </div>
-                                </span>
-                            </li>
-                            <li class="app__list-row">
-                                <span class="app__list-cell">2016-12-06</span>
-                                <span class="app__list-cell">Loan</span>
-                                <span class="app__list-cell">5000</span>
-                                <span class="app__list-cell">
-                                    <div class="app__btn-group">
-                                        <a href="" class="btn btn-primary btn-lg">Edit</a>
-                                        <a href="" class="btn btn-danger btn-lg">Delete</a>
-                                    </div>
-                                </span>
-                            </li>
+                            <% count = ((params[:page] || 1).to_i - 1) * 10 %>
+                            <% @records.each_with_index do |record, i| %>
+                                <li class="app__list-row">
+                                    <span class="app__list-cell"><%= i + count + 1 %></span>
+                                    <span class="app__list-cell"><%= record.date %></span>
+                                    <span class="app__list-cell"><%= record.title %></span>
+                                    <span class="app__list-cell"><%= record.amount %></span>
+                                    <span class="app__list-cell"><%= record.created_at.in_time_zone("Kathmandu").strftime("%b %d, %Y") %><em><%= time_ago_in_words(record.created_at.in_time_zone("Kathmandu")) + ' ago' %></em></span>
+                                    <span class="app__list-cell"><%= record.updated_at.in_time_zone("Kathmandu").strftime("%b %d, %Y") %><em><%= time_ago_in_words(record.updated_at.in_time_zone("Kathmandu")) + ' ago' %></em></span>
+                                    <span class="app__list-cell">
+                                        <div class="app__btn-group">
+                                            <!--<a href="" class="btn btn-primary btn-lg">Edit</a>-->
+                                            <!--<a href="" class="btn btn-danger btn-lg">Delete</a>-->
+                                            <%= link_to edit_record_path(record), :class => 'btn btn-primary btn-lg' do %>
+                                                <i class="fa fa-pencil"></i>
+                                                <span>Edit</span>
+                                            <% end %>
+                                            <%= link_to record_path(record), method: :delete, :class => 'btn btn-danger btn-lg', data: {confirm: "Are you sure?"} do %>
+                                                <i class="fa fa-trash-o"></i>
+                                                <span>Delete</span>
+                                            <% end %>
+                                        </div>
+                                    </span>
+                                </li>
+                            <% end %>
                         </ul>
+                    </div>
+                    <div class="app__pagination text-center">
+                        <%= will_paginate @records %>
                     </div>
                 </div>
             </div>

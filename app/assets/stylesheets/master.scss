@@ -27,9 +27,10 @@ $color-creamy: #928071;
 $color-nylon: #CC9E61;
 $color-ash: #6B6B6F;
 $color-ash-assist: #878789;
+$color-red: #d9534f;
 
 // Box model / layouts
-$height-footer: 45px;
+$height-footer: 80px;
 
 /*
 ** Styling application elements
@@ -51,6 +52,10 @@ body {
     box-sizing: border-box;
 }
 
+h1, h2, h3, h4, h5, h6 {
+    margin: 0 0;
+}
+
 h1:last-of-type,
 h1:last-child,
 h2:last-of-type,
@@ -59,9 +64,9 @@ h3:last-of-type,
 h3:last-child,
 h4:last-of-type,
 h4:last-child,
-p:last-of-type,
-p:last-child {
-    margin: 0;
+p:last-child,
+p:last-of-type {
+    margin-bottom: 0;
 }
 
 ul, ol, li {
@@ -140,7 +145,7 @@ ul, ol, li {
     /* Negative indent footer by its height */
     margin: 0 auto (-$height-footer);
     /* Pad bottom by footer height */
-    padding: 0 0 $height-footer;
+    padding: 0 0 $height-footer + 30;
     min-height: 100%;
     height: auto;
 }
@@ -150,13 +155,39 @@ ul, ol, li {
     right: 0;
     left: 0;
     bottom: 0;
-    height: $height-footer;
+    height: auto;
+    padding: 25px 15px;
+    background: {
+        color: $color-ash;
+    };
+    color: $color-white;
+    
+    .credit-by {
+        > a {
+            color: $color-nylon;
+            text-decoration: none;
+        }
+    }
 }
 
 /* Style rules for app app */
 /* Namespacing */
 $ns: 'app';
 .#{$ns} {
+    /* Header */
+    &__header {
+        .row {
+            display: table;
+            width: 100%;
+            
+            > [class*="col-"] {
+                display: inline-block;
+                vertical-align: middle;
+                float: none;
+            }
+        }
+    }
+    
     /* Main */
     &__main {
         margin-top: 2.25rem;
@@ -171,27 +202,6 @@ $ns: 'app';
         /* Account detail */
         &--accountDetails {
             //padding: 30px 0;
-        }
-    }
-    
-    /* Messages */
-    &__message {
-        font-family: $font-secondary;
-        font-style: italic;
-        
-        /* Big size message */
-        &--big {
-            font-size: 40px;
-        }
-        
-        /* Small size message */
-        &--small {
-            font-size: 16px;
-        }
-        
-        /* Error message */
-        &--error {
-            color: $color-red;           
         }
     }
     
@@ -210,9 +220,9 @@ $ns: 'app';
                 right: 15px;
                 padding: 7px 10px;
                 background: {
-                    color: $color-nylon;
+                    color: $color-red;
                 };
-                border-color: $color-nylon;
+                border-color: $color-red;
                 border-radius: 3px;
                 font-size: 14px;
                 outline: 0;
@@ -245,14 +255,11 @@ $ns: 'app';
             padding-right: 15px;
             padding-left: 15px;
         }
-        
-        li {
+        &-row {
             color: $color-white;
             font-family: $font-secondary;
             font-size: 1.5em;
-        }
-        
-        &-row {
+            
             &-header {
                 > span {
                     padding: 10px 15px;
@@ -287,24 +294,60 @@ $ns: 'app';
                     > span {
                         padding: 7px 15px;
                         font-size: 16px;
+                        
+                        &:first-of-type {
+                            border-left: 1px solid $color-nylon;
+                        }
+                        
+                        &:last-of-type {
+                            border-right: 1px solid $color-nylon;
+                        }
+                    }
+                    
+                    &:last-of-type {
+                        > span {
+                            border-bottom: 1px solid $color-nylon;
+                        }
                     }
                 }
             }
             
             .#{$ns}__list-recordTable & {
-                    display: table-row;
-                    > span {
-                        display: table-cell;
-                        vertical-align: middle;
-                        padding: 10px 15px;
-                        text-align: center;
-                    }
+                display: table-row;
+                > span {
+                    display: table-cell;
+                    vertical-align: middle;
+                    padding: 10px 15px;
+                    text-align: center;
+                }
+                
+                .btn {
+                    padding: 4px 13px;
+                    border-radius: 2px;
+                    font-size: 14px;
                     
-                    .btn {
-                        padding: 4px 10px;
-                        font-size: 14px;
+                    &:not(:last-of-type) {
+                        margin-right: 15px;
                     }
                 }
+            }
+        }
+        
+        &-cell {
+            &-sn {
+                width: 10%;
+                text-align: left;
+            }
+            
+            em {
+                display: inline-block;
+                margin-left: 5px;
+                padding: 2px 5px;
+                background: {
+                    color: $color-red;
+                };
+                font-size: 12px;
+            }
         }
         
         &-title {
@@ -315,4 +358,224 @@ $ns: 'app';
             text-align: right;
         }
     }
+    
+    /* Applicaiton Form */
+    &__form {
+        &Wrap {
+            &--createRecord {
+                
+            }
+            
+            &--styled {
+                margin: 0 auto;
+                max-width: 700px;
+                font-family: $font-secondary;
+            }
+            
+            &--header {
+                padding: 15px 15px;
+                background: {
+                    color: $color-brown;
+                };
+                
+                h1 {
+                    color: $color-white;
+                    font-size: 1.5em;
+                    text-transform: uppercase;
+                }
+            }
+        }
+        
+        &-row {
+            padding: 20px 20px;
+            background: {
+                color: $color-ash-assist;
+            };
+            
+            label {
+                margin-bottom: 10px;
+                color: $color-brown;
+                font-size: 1.125em;
+            }
+            
+            .form-control {
+                padding: 12px 15px;
+                border: 0;
+                border-radius: 0;
+                height: auto;
+                
+                &:hover,
+                &:active,
+                &:focus {
+                    border: 0;
+                    outline: 0;
+                    box-shadow: none;
+                }
+            }
+            
+            .form-inline {
+                &::before,
+                &::after {
+                    content: "";
+                    overflow: hidden;
+                    display: table;
+                    height: 0;
+                    visibility: hidden;
+                }
+                
+                &::after {
+                    clear: both;
+                }
+                
+                select {
+                    width: 30%;
+                    float: left;
+                    
+                    &:not(:last-of-type) {
+                        margin-right: 5%;
+                    }
+                }
+            }
+            
+            .btn {
+                
+                &-red {
+                    display: block;
+                    margin: 35px auto 0;
+                    padding: 10px 15px;
+                    width: 100%;
+                    max-width: 150px;
+                    background: {
+                        color: $color-red;
+                    };
+                    color: $color-white;
+                    font-size: 1.125em;
+                    font-weight: bold;    
+                    
+                    &:focus,
+                    &:active,
+                    &:hover {
+                        outline: 0;
+                    }
+                }
+            }
+        }
+    
+        
+        /* Search form */
+        &-search {
+            .form-control {
+                margin: 0 0 0 auto;
+                padding-right: 80px;
+                max-width: 270px;
+                border: 0;
+                border-radius: 0;
+                color: $color-black;
+                font-size: 14px;
+                font-style: italic;
+                font-weight: 600;
+                outline: 0;
+                
+                &:focus,
+                &:hover,
+                &:active {
+                    outline: 0;
+                }
+            }
+            
+            .btn {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                padding: 5px 10px;
+                width: 80px;
+                height: auto;
+                background: {
+                    color: $color-red;
+                };
+                border: 0;
+                border-radius: 0;
+                font-size: 14px;
+                font-weight: 600;
+                line-height: 1;
+                
+                &:focus,
+                &:hover,
+                &:active {
+                    box-shadow: none;
+                    outline: 0;
+                }
+            }
+        }
+    }
+    
+    /* Application record count */
+    &__message {
+        color: $color-white;
+        font-size: 1.125em;
+        font-style: italic;
+        
+        &--lg {
+            padding: 20px 15px;
+        }
+        
+        &--sm {
+            padding: 10px 15px;
+        }
+        
+        &--count {
+            background: {
+                color: $color-red;
+            };
+        }
+        
+        &--reminder {
+            background: {
+                color: $color-ash-assist;
+            };
+        }
+    }
+    
+    /* Application pagination */
+    &__pagination {
+        margin-top: 30px;
+        
+        .pagination {
+            margin: 0 0;
+            
+            * {
+                display: inline-block;
+                vertical-align: middle;
+                padding: 10px 20px;
+                background: {
+                    color: $color-red;
+                };
+                color: $color-white;
+                font-size: 14px;
+                text-decoration: none;
+            }
+        }
+    }
+}
+
+/* Application button */
+.btn {
+    > i {
+        margin-right: 5px;
+    }
+}
+
+button {
+    &:focus,
+    &:hover {
+        outline: 0;
+    }
+}
+
+/* Flash messages */
+$ms : 'alert';
+.#{$ms} {
+    margin: 0 auto 20px;
+    max-width: 700px;
 }
