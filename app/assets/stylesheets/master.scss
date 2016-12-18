@@ -1,0 +1,318 @@
+/*
+** Author :: Bobaminions
+** Date :: 04/12/2016
+** Custom sass/scss file to store style rules for app application
+*/
+
+// Rails by default uses SASS as it's cascading style sheets (CSS) preprocessor
+// SASS extends static/dead css with loads of features which makes it lively
+// We can use variables, @mixins, function, nested structure, loops, control statements, even if we can use OOPS concept
+
+/*
+** Declaring variables to make codes reusale
+*/
+
+// Typography variables
+$font-primary: 'Open Sans', sans-serif;  
+$font-secondary: 'Dosis', sans-serif;
+
+// Theme color variables
+$color-black: #000000;
+$color-white: #ffffff;
+$color-main-blue: #337ab7;
+$color-red: #cc3333;
+$color-brown: #541F14;
+$color-gray: #f6f6f6;
+$color-creamy: #928071;
+$color-nylon: #CC9E61;
+$color-ash: #6B6B6F;
+$color-ash-assist: #878789;
+
+// Box model / layouts
+$height-footer: 45px;
+
+/*
+** Styling application elements
+*/
+
+/* Common style rules */
+
+html, body {
+    /* The html and body elements cannot have any padding or margin. */
+    height: 100%;
+    font-family: $font-primary;
+}
+
+body {
+    background: $color-nylon;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+h1:last-of-type,
+h1:last-child,
+h2:last-of-type,
+h2:last-child,
+h3:last-of-type,
+h3:last-child,
+h4:last-of-type,
+h4:last-child,
+p:last-of-type,
+p:last-child {
+    margin: 0;
+}
+
+ul, ol, li {
+    margin: 0 0;
+    padding: 0 0;
+    list-style: none;
+}
+
+/* Header / Navigation style rules */
+
+.navbar-default {
+    margin-bottom: 0;
+    background: $color-ash;
+    border-bottom: 0;
+    border-radius: 0;
+    font-family: $font-secondary;
+}
+
+.navbar-default .navbar-brand {
+    color: $color-white;
+    font-size: 30px;
+    font-weight: 100;
+    letter-spacing: 2px;
+    
+    &:hover {
+        color: $color-brown;
+    }
+}
+
+.navbar-collapse {
+    @media (min-width: 768px) {
+        float: right;
+    }
+}
+
+.navbar-default .navbar-brand {
+    @media (min-width: 768px) {
+        padding-top: 20px;
+        padding-bottom: 20px;
+        height: auto;
+        font-family: $font-secondary;
+        font-size: 40px;
+        font-style: italic;
+        font-weight: bold;
+        line-height: 32px;
+        transition: all linear 0.35s;
+    }
+}
+
+.navbar-default .navbar-nav > li > a {
+    @media (min-width: 768px) {
+        padding-top: 26px;
+        padding-bottom: 26px;
+        color: $color-black;
+        font-size: 16px;
+        font-weight: 600;
+        transition: all linear 0.35s;
+        
+        &:hover {
+            color: $color-brown;
+        }
+    }
+}
+
+.navbar-header {
+   display: inline-block; 
+   vertical-align: middle;
+   float: none;
+}
+
+/* Footer style rules */
+
+/* Wrapper for page content to push down footer */
+#app__wrap {
+    position: relative;
+    /* Negative indent footer by its height */
+    margin: 0 auto (-$height-footer);
+    /* Pad bottom by footer height */
+    padding: 0 0 $height-footer;
+    min-height: 100%;
+    height: auto;
+}
+
+.footer {
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    height: $height-footer;
+}
+
+/* Style rules for app app */
+/* Namespacing */
+$ns: 'app';
+.#{$ns} {
+    /* Main */
+    &__main {
+        margin-top: 2.25rem;
+    }
+    
+    /* Blocks */
+    &__block {
+        &:not(:last-of-type) {
+            margin-bottom: 2.5rem;
+        }
+        
+        /* Account detail */
+        &--accountDetails {
+            //padding: 30px 0;
+        }
+    }
+    
+    /* Messages */
+    &__message {
+        font-family: $font-secondary;
+        font-style: italic;
+        
+        /* Big size message */
+        &--big {
+            font-size: 40px;
+        }
+        
+        /* Small size message */
+        &--small {
+            font-size: 16px;
+        }
+        
+        /* Error message */
+        &--error {
+            color: $color-red;           
+        }
+    }
+    
+    /* App details list */
+    &__detail {
+        &-title {
+            position: relative;
+            padding: 13px 15px;
+            background: $color-brown;
+            
+            .btn,
+            .btn:focus, 
+            .btn:active {
+                position: absolute;
+                top: 50%;
+                right: 15px;
+                padding: 7px 10px;
+                background: {
+                    color: $color-nylon;
+                };
+                border-color: $color-nylon;
+                border-radius: 3px;
+                font-size: 14px;
+                outline: 0;
+                transform: translateY(-50%);
+            }
+            
+            h3 {
+                color: $color-white;
+                font-family: $font-secondary;
+                font-size: 1.75em;
+                text-transform: uppercase;
+            }
+        }
+        
+        &-list {
+            
+        }
+    }
+    
+    /* Details List */
+    &__list {
+        padding: 15px 0px;
+        background: {
+            color: $color-ash;
+        }
+        
+        &-recordTable {
+            display: table;
+            width: 100%;
+            padding-right: 15px;
+            padding-left: 15px;
+        }
+        
+        li {
+            color: $color-white;
+            font-family: $font-secondary;
+            font-size: 1.5em;
+        }
+        
+        &-row {
+            &-header {
+                > span {
+                    padding: 10px 15px;
+                    background: $color-nylon;
+                }    
+            }
+            
+            .#{$ns}__list-recordDetail & {
+                &:not(:last-of-type) {
+                    margin-bottom: 13px;
+                    padding-bottom: 15px;
+                    border-bottom: 1px solid $color-ash-assist;
+                }
+            
+                > span {
+                    display: inline-block;
+                    vertical-align: middle;
+                    margin-left: -3px;
+                    padding: 0 15px;
+                    width: 50%;
+                }
+            }
+            
+            &:not(.#{$ns}__list-row-header) {
+                .#{$ns}__list-recordTable & {
+                    &:nth-of-type(odd) {
+                        background: {
+                            color: $color-ash-assist;
+                        };
+                    }
+                    
+                    > span {
+                        padding: 7px 15px;
+                        font-size: 16px;
+                    }
+                }
+            }
+            
+            .#{$ns}__list-recordTable & {
+                    display: table-row;
+                    > span {
+                        display: table-cell;
+                        vertical-align: middle;
+                        padding: 10px 15px;
+                        text-align: center;
+                    }
+                    
+                    .btn {
+                        padding: 4px 10px;
+                        font-size: 14px;
+                    }
+                }
+        }
+        
+        &-title {
+            text-align: left;
+        }
+        
+        &-value {
+            text-align: right;
+        }
+    }
+}

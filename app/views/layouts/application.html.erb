@@ -5,10 +5,28 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <!-- Importing web fonts from Google fonts library -->
+  <link href="https://fonts.googleapis.com/css?family=Dosis:300,400,600,700|Open+Sans:300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
+  <!-- /.#Importing web fonts from Google fonts library -->
 </head>
 <body>
-
-<%= yield %>
-
+  
+  <!-- Outer wrapper of the app App -->
+  <div id="app__wrap" class="app__wrap" role="main">
+    <!-- Structure imported/included/rendered from _nav.html.erb partial -->
+    <%= render 'shared/nav' %>
+    <!-- /.#Structure imported/included/rendered from _nav.html.erb partial -->
+    
+    <!-- Main body section of the app App -->
+    <main id="app__main" class="app__main" role="main">
+      <%= yield %>
+    </main><!-- /.#Main body section of the app App -->
+    
+    <!-- Structure imported/included/rendered from _footer.html.erb partial -->
+    <%= render 'shared/footer' %>
+    <!-- /.#Structure imported/included/rendered from _footer.html.erb partial -->
+    
+  </div><!-- Outer wrapper of the app App -->
+  
 </body>
 </html>
