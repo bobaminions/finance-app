@@ -5,17 +5,15 @@ class RecordsController < ApplicationController
         if params[:search]
             @records = Record.search(params[:search]).order("created_at DESC").paginate(:page => params[:page], :per_page => 10)
             @record_count = @records.count()
-            @balance_sum = @records.where("amount > 0").sum(:amount)
-            @debt_amount = @records.where("amount < 0").sum(:amount)
+            @balance_sum = @records.balance
+            @debt_amount = @records.debt
         else
             @records = Record.order("created_at DESC").paginate(:page => params[:page], :per_page => 10)
             @record_count = Record.count()
-            @balance_sum = Record.where("amount > 0").sum(:amount)
-            @debt_amount = Record.where("amount < 0").sum(:amount)
+            @balance_sum = Record.balance
+            @debt_amount = Record.debt
         end
         @total_amount = @balance_sum + @debt_amount
-        
-        
     end
     
     def new
